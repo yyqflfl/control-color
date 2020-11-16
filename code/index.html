@@ -26,7 +26,7 @@
 
 <body>
     <div id="app">
-        <item-test :list='list' @change-color='handle($event)'>
+        <item-test :list='list'>
             <template slot-scope='slotProps'>
                 <strong v-if='slotProps.info.id == slotProps.hao' class="current">{{slotProps.info.name}}</strong>
                 <span v-else>{{slotProps.info.name}}</span>
@@ -36,7 +36,7 @@
     <script type="text/javascript" src="../js/vue.js"></script>
     <script type="text/javascript">
         Vue.component('item-test', {
-            props: ['list', 'message'],
+            props: ['list'],
             data: function() {
                 return {
                     num: 0
