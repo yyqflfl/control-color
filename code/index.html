@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    ul {
+        list-style: none;
+    }
+    
+    ul li {
+        width: 150px;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        float: right;
+    }
+    
+    .current {
+        color: orange;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <item-test :list='list' @change-color='handle($event)'>
+            <template slot-scope='slotProps'>
+                <strong v-if='slotProps.info.id == slotProps.hao' class="current">{{slotProps.info.name}}</strong>
+                <span v-else>{{slotProps.info.name}}</span>
+            </template>
+        </item-test>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        Vue.component('item-test', {
+            props: ['list', 'message'],
+            data: function() {
+                return {
+                    num: 0
+                }
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li :key='item.id' v-for='item in list'>
+                            <slot :info='item' :hao='num'>{{item.name}}</slot>
+                            <button @click='handle(item)'>改变颜色</button>
+                        </li>
+                    </ul>
+                </div>
+            `,
+            methods: {
+                handle: function(val) {
+                    this.num = val.id;
+                }
+            }
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                    id: 1,
+                    name: 'apple'
+                }, {
+                    id: 2,
+                    name: 'orange'
+                }, {
+                    id: 3,
+                    name: 'banana'
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>
